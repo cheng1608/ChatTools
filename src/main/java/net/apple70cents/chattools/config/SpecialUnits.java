@@ -166,6 +166,81 @@ public class SpecialUnits {
         }
     }
 
+    public static class AutoChatUnit {
+        public boolean abled;
+        public String message;
+        public long interval; // 毫秒
+
+        public AutoChatUnit() {
+            this.abled = false;
+            this.message = "";
+            this.interval = 5000;
+        }
+
+        public AutoChatUnit(boolean abled, String message, long interval) {
+            this.abled = abled;
+            this.message = message;
+            this.interval = interval;
+        }
+
+        public static AutoChatUnit of(Object ele) {
+            if (ele instanceof java.util.Map) {
+                java.util.Map map = (java.util.Map) ele;
+                boolean abled = false;
+                if (map.containsKey("abled")) {
+                    Object abledObj = map.get("abled");
+                    if (abledObj instanceof Boolean) {
+                        abled = (Boolean) abledObj;
+                    } else if (abledObj instanceof String) {
+                        abled = Boolean.parseBoolean((String) abledObj);
+                    }
+                }
+                String message = map.containsKey("message") ? (String) map.get("message") : "";
+                long interval = 60;
+                if (map.containsKey("interval")) {
+                    Object intervalObj = map.get("interval");
+                    if (intervalObj instanceof Number) {
+                        interval = ((Number) intervalObj).longValue();
+                    } else if (intervalObj instanceof String) {
+                        try {
+                            interval = Long.parseLong((String) intervalObj);
+                        } catch (Exception ignore) {}
+                    }
+                }
+                return new AutoChatUnit(abled, message, interval);
+            } else if (ele instanceof AutoChatUnit) {
+                return (AutoChatUnit) ele;
+            } else {
+                throw new IllegalArgumentException("Unexpected element type of Object: " + ele);
+            }
+        }
+
+        public static List<AutoChatUnit> fromList(List list) {
+            List<AutoChatUnit> arr = new java.util.ArrayList<>();
+            for (Object ele : list) {
+                arr.add(AutoChatUnit.of(ele));
+            }
+            return arr;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            AutoChatUnit that = (AutoChatUnit) o;
+            return abled == that.abled && interval == that.interval &&
+                    (message == null ? that.message == null : message.equals(that.message));
+        }
+
+        @Override
+        public int hashCode() {
+            int result = (abled ? 1 : 0);
+            result = 31 * result + (message != null ? message.hashCode() : 0);
+            result = 31 * result + (int) (interval ^ (interval >>> 32));
+            return result;
+        }
+    }
+    
     public static class FormatterUnit {
         public String address;
         public String formatter;

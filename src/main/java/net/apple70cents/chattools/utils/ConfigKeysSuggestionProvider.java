@@ -45,6 +45,7 @@ public class ConfigKeysSuggestionProvider implements SuggestionProvider<FabricCl
                     case "StringList":
                     case "FormatterList":
                     case "MacroList":
+                        case "AutoChatList":
                     case "BubbleList":
                     case "ResponderList":
                     case "CustomJoinMessageList":

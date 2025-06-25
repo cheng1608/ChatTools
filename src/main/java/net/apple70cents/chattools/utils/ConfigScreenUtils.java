@@ -376,6 +376,61 @@ public class ConfigScreenUtils {
                             }
                         }
                     );
+            case "AutoChatList":
+                return new NestedListListEntry<SpecialUnits.AutoChatUnit, MultiElementListEntry<SpecialUnits.AutoChatUnit>>(
+                        trans(key),
+                        SpecialUnits.AutoChatUnit.fromList((List) ConfigUtils.get(key)),
+                        true,
+                        () -> Optional.of(new Component[]{tooltip}),
+                        v -> ConfigUtils.set(key, v),
+                        () -> SpecialUnits.AutoChatUnit.fromList((List) ConfigUtils.getDefault(key)),
+                        eb.getResetButtonKey(),
+                        true,
+                        true, (autoChatUnit, ignored) -> {
+                    AtomicReference<SpecialUnits.AutoChatUnit> autoChatUnitRef = new AtomicReference<>(autoChatUnit);
+                    if (autoChatUnit == null) {
+                        Component displayText = trans(key + ".@New");
+                        SpecialUnits.AutoChatUnit defaultUnit = new SpecialUnits.AutoChatUnit();
+                        autoChatUnitRef.set(defaultUnit);
+                        return new MultiElementListEntry<>(displayText, defaultUnit, new ArrayList<AbstractConfigListEntry<?>>() {{
+                            add(eb.startBooleanToggle(trans(key + ".Abled"), defaultUnit.abled)
+                                    .setTooltip(getTooltip(key + ".Abled", "boolean", defaultUnit.abled))
+                                    .setDefaultValue(false)
+                                    .setSaveConsumer(v -> autoChatUnitRef.get().abled = v)
+                                    .build());
+                            add(eb.startStrField(trans(key + ".Message"), defaultUnit.message)
+                                    .setTooltip(getTooltip(key + ".Message", "String", defaultUnit.message))
+                                    .setDefaultValue("")
+                                    .setSaveConsumer(v -> autoChatUnitRef.get().message = v)
+                                    .build());
+                            add(eb.startLongField(trans(key + ".Interval"), defaultUnit.interval)
+                                    .setTooltip(getTooltip(key + ".Interval", "long", defaultUnit.interval))
+                                    .setDefaultValue(5000L)
+                                    .setSaveConsumer(v -> autoChatUnitRef.get().interval = v)
+                                    .build());
+                        }}, SHOULD_EXPAND_ALL_RULES);
+                    } else {
+                        Component displayText = trans(key + ".@Display", autoChatUnit.message, autoChatUnit.interval);
+                        return new MultiElementListEntry<>(displayText, autoChatUnit, new ArrayList<AbstractConfigListEntry<?>>() {{
+                            add(eb.startBooleanToggle(trans(key + ".Abled"), autoChatUnit.abled)
+                                    .setTooltip(getTooltip(key + ".Abled", "boolean", autoChatUnit.abled))
+                                    .setDefaultValue(false)
+                                    .setSaveConsumer(v -> autoChatUnit.abled = v)
+                                    .build());
+                            add(eb.startStrField(trans(key + ".Message"), autoChatUnit.message)
+                                    .setTooltip(getTooltip(key + ".Message", "String", autoChatUnit.message))
+                                    .setDefaultValue("")
+                                    .setSaveConsumer(v -> autoChatUnit.message = v)
+                                    .build());
+                            add(eb.startLongField(trans(key + ".Interval"), autoChatUnit.interval)
+                                    .setTooltip(getTooltip(key + ".Interval", "long", autoChatUnit.interval))
+                                    .setDefaultValue(5000L)
+                                    .setSaveConsumer(v -> autoChatUnit.interval = v)
+                                    .build());
+                        }}, SHOULD_EXPAND_ALL_RULES);
+                    }
+                }
+                );
             case "FormatterList":
                 return new NestedListListEntry<SpecialUnits.FormatterUnit, MultiElementListEntry<SpecialUnits.FormatterUnit>>
                     (SERVER_LABELED_KEY,
