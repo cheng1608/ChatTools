@@ -288,6 +288,7 @@ public class CommandRegistryUtils {
                     case "StringList":
                     case "FormatterList":
                     case "MacroList":
+                        case "AutoChatList":
                     case "BubbleList":
                     case "ResponderList":
                     case "CustomJoinMessageList":

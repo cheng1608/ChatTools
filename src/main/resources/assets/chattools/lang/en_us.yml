@@ -376,6 +376,24 @@ key:
       RepeatKeyModifier:
         .: Repeat Key Modifier
         '@Tooltip': You'll need to activate this modifier key as well, in order to repeat.
+      AutoChat:
+        Enabled:
+          .: Enable Auto Chat
+          '@Tooltip': Toggles whether the auto chat below should work.
+        List:
+          .: Auto Chat list
+          '@Tooltip': Defines the auto chat messages.
+          '@New': New Message
+          '@Display': §e[ %s§e ]§r %s
+          Abled:
+            .: Enabled
+            '@Tooltip': Whether this auto chat message is enabled.
+          Message:
+            .: Message
+            '@Tooltip': The content to be sent automatically.
+          Interval:
+            .: Interval
+            '@Tooltip': Interval between messages
       Macro:
         Enabled:
           .: Enable Command Keybindings

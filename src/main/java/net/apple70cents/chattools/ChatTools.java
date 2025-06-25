@@ -1,5 +1,6 @@
 package net.apple70cents.chattools;
 
+import net.apple70cents.chattools.features.chatkeybindings.AutoChat;
 import net.apple70cents.chattools.features.chatkeybindings.Macro;
 import net.apple70cents.chattools.features.chatkeybindings.Repeat;
 import net.apple70cents.chattools.utils.*;
@@ -36,6 +37,9 @@ public class ChatTools implements ModInitializer {
             Repeat.tick();
             if ((boolean) ConfigUtils.get("chatkeybindings.Macro.Enabled")) {
                 Macro.tick();
+            }
+            if ((boolean) ConfigUtils.get("chatkeybindings.AutoChat.Enabled")) {
+                AutoChat.tick();
             }
         });
 

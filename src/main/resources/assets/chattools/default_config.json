@@ -52,6 +52,8 @@
     "^(\\+|-)?\\d+(\\.\\d+)?$|^[.#%$/].*|\\ball\\b",
     "(^(\\[|<)i(tem)?(\\]|>)$)"
   ],
+  "chatkeybindings.AutoChat.Enabled": false,
+  "chatkeybindings.AutoChat.List": [],
   "chatkeybindings.RepeatKey": "key.keyboard.unknown",
   "chatkeybindings.RepeatKeyModifier": "NONE",
   "chatkeybindings.Macro.Enabled": true,

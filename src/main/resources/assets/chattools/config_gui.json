@@ -301,6 +301,14 @@
       "key": "category.chatkeybindings",
       "content": [
         {
+          "type": "boolean",
+          "key": "chatkeybindings.AutoChat.Enabled"
+        },
+        {
+          "type": "AutoChatList",
+          "key": "chatkeybindings.AutoChat.List"
+        },
+        {
           "type": "keycode",
           "key": "chatkeybindings.RepeatKey"
         },

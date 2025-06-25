@@ -368,6 +368,24 @@ key:
       RepeatKeyModifier:
         .: 复读键修饰符
         '@Tooltip': 你需要同时再按下此修饰键才能触发复读。
+      AutoChat:
+        Enabled:
+          .: 自动发言
+          '@Tooltip': 开启自动发言
+        List:
+          .: 自动发言列表
+          '@Tooltip': 自动发言列表
+          '@New': 新建发言
+          '@Display': §e[ %s§e ]§r %s
+          Abled:
+            .: 开关
+            '@Tooltip': 是否开启当前发言规则
+          Message:
+            .: 内容
+            '@Tooltip': 内容发言
+          Interval:
+            .: 间隔
+            '@Tooltip': 发言的时间间隔（以秒为单位）
       Macro:
         Enabled:
           .: 启用宏
