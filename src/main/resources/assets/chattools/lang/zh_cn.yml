@@ -370,11 +370,12 @@ key:
         '@Tooltip': 你需要同时再按下此修饰键才能触发复读。
       AutoChat:
         Enabled:
-          .: 自动发言
-          '@Tooltip': 开启自动发言
+          .: 启用自动发言
+          '@Tooltip': 是否开启自动发言功能
         List:
           .: 自动发言列表
-          '@Tooltip': 自动发言列表
+          '@Tooltip': |-
+            在下方列表中添加自动发言的内容和时间间隔
           '@New': 新建发言
           '@Display': §e[ %s§e ]§r %s
           Abled:
