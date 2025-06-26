@@ -1,15 +1,15 @@
 {
   "config.version": 2.31002,
   "general.ChatTools.Enabled": true,
-  "general.ShowWelcomeMessageEnabled": true,
+  "general.ShowWelcomeMessageEnabled": false,
   "general.CircuitBreaker.ToastThreshold": 10,
   "general.CircuitBreaker.NickHiderThreshold": 15,
   "general.CircuitBreaker.OverrideChatColorThreshold": 15,
-  "general.Timestamp.Enabled": true,
+  "general.Timestamp.Enabled": false,
   "general.Timestamp.Pattern": "\u0026e[{hour}:{minute}:{second}] \u0026r",
   "general.Timestamp.CopyToChatBar.Enabled": true,
-  "general.RestoreMessages.Enabled": true,
-  "general.RestoreMessages.SplitLineEnabled": true,
+  "general.RestoreMessages.Enabled": false,
+  "general.RestoreMessages.SplitLineEnabled": false,
   "general.ExclusiveActionbar.Enabled": true,
   "general.ExclusiveActionbar.XOffset": 0,
   "general.ExclusiveActionbar.YOffset": 0,
@@ -32,13 +32,13 @@
   "general.UseSendPacketsForSendingMessages": false,
   "notifier.Toast.Enabled": false,
   "notifier.Toast.Mode": "ADDON",
-  "notifier.Sound.Enabled": true,
+  "notifier.Sound.Enabled": false,
   "notifier.Sound.Type": "block.note_block.bit",
   "notifier.Sound.Volume": 80,
   "notifier.Sound.Pitch": 10,
   "notifier.Sound.PlaySoundFromCameraPositionEnabled": true,
-  "notifier.Actionbar.Enabled": true,
-  "notifier.Highlight.Enabled": true,
+  "notifier.Actionbar.Enabled": false,
+  "notifier.Highlight.Enabled": false,
   "notifier.Highlight.Prefix": "\u00266[!]\u0026r ",
   "notifier.Highlight.OverwriteEnabled": false,
   "notifier.Highlight.InsertBeforeTimestamps": false,
@@ -57,8 +57,15 @@
   "chatkeybindings.RepeatKey": "key.keyboard.unknown",
   "chatkeybindings.RepeatKeyModifier": "NONE",
   "chatkeybindings.Macro.Enabled": true,
-  "chatkeybindings.Macro.List": [],
-  "bubble.Enabled": true,
+  "chatkeybindings.Macro.List": [
+    {
+      "key": "key.keyboard.r",
+      "modifier": "NONE",
+      "mode": "LAZY",
+      "command": "/back"
+    }
+  ],
+  "bubble.Enabled": false,
   "bubble.Lifetime": 8,
   "bubble.YOffset": 3,
   "bubble.MaxLineWidth": 190,
@@ -86,7 +93,7 @@
     }
   ],
   "filter.Enabled": false,
-  "filter.FilteredPlaceholderEnabled": true,
+  "filter.FilteredPlaceholderEnabled": false,
   "filter.List": [
     "<CHANGE ME>"
   ],

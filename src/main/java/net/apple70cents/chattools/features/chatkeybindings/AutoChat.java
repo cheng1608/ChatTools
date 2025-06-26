@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /*
   "chatkeybindings.AutoChat.Enabled": false,
   "chatkeybindings.AutoChat.List": [],
@@ -49,7 +48,7 @@ public class AutoChat {
             long period = elapsed / unit.interval;
             Long lastPeriod = lastPeriodMap.get(key);
 
-            if (lastPeriod == null || period > lastPeriod) {
+            if (lastPeriod == null || period > lastPeriod) {//刚好位于两个 period交界处时
                 LoggerUtils.info("[ChatTools] AutoChat: " + unit.message);
                 MessageUtils.sendToPublicChat(unit.message);
                 lastPeriodMap.put(key, period);
