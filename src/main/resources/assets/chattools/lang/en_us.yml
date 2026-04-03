@@ -393,7 +393,24 @@ key:
             '@Tooltip': The content to be sent automatically.
           Interval:
             .: Interval
-            '@Tooltip': Interval between messages
+            '@Tooltip': |-
+              Period in seconds.
+              When wall-clock mode is off: first send waits for Initial delay, then repeats every this many seconds.
+          InitialDelaySeconds:
+            .: Initial delay
+            '@Tooltip': |-
+              Only when wall-clock mode is off: wait this many seconds after the rule becomes active before the first send, then repeat every Interval.
+              0 means send the first message as soon as allowed (still subject to in-game tick and no-open-screen checks).
+          WallClockAligned:
+            .: Wall-clock aligned
+            '@Tooltip': |-
+              When on, firing follows Unix epoch seconds in buckets of length Interval (use Offset to shift the phase).
+              Useful so relogs or different PCs stay on the same beat. Initial delay is ignored in this mode.
+          OffsetSeconds:
+            .: Time offset
+            '@Tooltip': |-
+              Only in wall-clock mode, in seconds (taken modulo Interval).
+              Example: interval 300s (5 min) and offset 60 shifts the whole pattern by one minute.
       Macro:
         Enabled:
           .: Enable Command Keybindings

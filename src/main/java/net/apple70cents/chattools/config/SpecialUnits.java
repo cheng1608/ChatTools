@@ -169,18 +169,34 @@ public class SpecialUnits {
     public static class AutoChatUnit {
         public boolean abled;
         public String message;
-        public long interval; // 毫秒
+        /** 间隔秒数：非墙钟时为两次发送之间的间隔；墙钟时为节拍长度。 */
+        public long interval;
+        /** 非墙钟时：规则生效后，等待这么多秒再发第一条（秒）。 */
+        public long initialDelaySeconds;
+        /**
+         * 为 true 时按 Unix 整秒对齐：自纪元起每 {@code interval} 秒一个节拍；
+         * {@code offsetSeconds} 经取模后作为相位偏移（见 {@link Math#floorMod(long, long)}）。
+         */
+        public boolean wallClockAligned;
+        /** 墙钟模式下时间偏移（秒），会与 {@code interval} 取模。 */
+        public long offsetSeconds;
 
         public AutoChatUnit() {
             this.abled = false;
             this.message = "";
-            this.interval = 5000;
+            this.interval = 300;
+            this.initialDelaySeconds = 0;
+            this.wallClockAligned = false;
+            this.offsetSeconds = 0;
         }
 
         public AutoChatUnit(boolean abled, String message, long interval) {
             this.abled = abled;
             this.message = message;
             this.interval = interval;
+            this.initialDelaySeconds = 0;
+            this.wallClockAligned = false;
+            this.offsetSeconds = 0;
         }
 
         public static AutoChatUnit of(Object ele) {
@@ -196,7 +212,7 @@ public class SpecialUnits {
                     }
                 }
                 String message = map.containsKey("message") ? (String) map.get("message") : "";
-                long interval = 60;
+                long interval = 300;
                 if (map.containsKey("interval")) {
                     Object intervalObj = map.get("interval");
                     if (intervalObj instanceof Number) {
@@ -207,7 +223,36 @@ public class SpecialUnits {
                         } catch (Exception ignore) {}
                     }
                 }
-                return new AutoChatUnit(abled, message, interval);
+                AutoChatUnit unit = new AutoChatUnit(abled, message, interval);
+                if (map.containsKey("initialDelaySeconds")) {
+                    Object o = map.get("initialDelaySeconds");
+                    if (o instanceof Number) {
+                        unit.initialDelaySeconds = ((Number) o).longValue();
+                    } else if (o instanceof String) {
+                        try {
+                            unit.initialDelaySeconds = Long.parseLong((String) o);
+                        } catch (Exception ignore) {}
+                    }
+                }
+                if (map.containsKey("wallClockAligned")) {
+                    Object o = map.get("wallClockAligned");
+                    if (o instanceof Boolean) {
+                        unit.wallClockAligned = (Boolean) o;
+                    } else if (o instanceof String) {
+                        unit.wallClockAligned = Boolean.parseBoolean((String) o);
+                    }
+                }
+                if (map.containsKey("offsetSeconds")) {
+                    Object o = map.get("offsetSeconds");
+                    if (o instanceof Number) {
+                        unit.offsetSeconds = ((Number) o).longValue();
+                    } else if (o instanceof String) {
+                        try {
+                            unit.offsetSeconds = Long.parseLong((String) o);
+                        } catch (Exception ignore) {}
+                    }
+                }
+                return unit;
             } else if (ele instanceof AutoChatUnit) {
                 return (AutoChatUnit) ele;
             } else {
@@ -223,13 +268,28 @@ public class SpecialUnits {
             return arr;
         }
 
+        /** 配置列表行摘要：间隔、可选首次延迟、墙钟标记 [W]。 */
+        public String scheduleSummaryLabel() {
+            StringBuilder sb = new StringBuilder();
+            sb.append(interval).append('s');
+            if (initialDelaySeconds > 0) {
+                sb.append(" +").append(initialDelaySeconds).append('s');
+            }
+            if (wallClockAligned) {
+                sb.append(" [W]");
+            }
+            return sb.toString();
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             AutoChatUnit that = (AutoChatUnit) o;
-            return abled == that.abled && interval == that.interval &&
-                    (message == null ? that.message == null : message.equals(that.message));
+            return abled == that.abled && interval == that.interval
+                    && initialDelaySeconds == that.initialDelaySeconds
+                    && wallClockAligned == that.wallClockAligned && offsetSeconds == that.offsetSeconds
+                    && (message == null ? that.message == null : message.equals(that.message));
         }
 
         @Override
@@ -237,6 +297,9 @@ public class SpecialUnits {
             int result = (abled ? 1 : 0);
             result = 31 * result + (message != null ? message.hashCode() : 0);
             result = 31 * result + (int) (interval ^ (interval >>> 32));
+            result = 31 * result + (int) (initialDelaySeconds ^ (initialDelaySeconds >>> 32));
+            result = 31 * result + (wallClockAligned ? 1 : 0);
+            result = 31 * result + (int) (offsetSeconds ^ (offsetSeconds >>> 32));
             return result;
         }
     }

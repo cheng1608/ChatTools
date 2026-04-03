@@ -405,12 +405,27 @@ public class ConfigScreenUtils {
                                     .build());
                             add(eb.startLongField(trans(key + ".Interval"), defaultUnit.interval)
                                     .setTooltip(getTooltip(key + ".Interval", "long", defaultUnit.interval))
-                                    .setDefaultValue(5000L)
+                                    .setDefaultValue(300L)
                                     .setSaveConsumer(v -> autoChatUnitRef.get().interval = v)
+                                    .build());
+                            add(eb.startLongField(trans(key + ".InitialDelaySeconds"), defaultUnit.initialDelaySeconds)
+                                    .setTooltip(getTooltip(key + ".InitialDelaySeconds", "long", defaultUnit.initialDelaySeconds))
+                                    .setDefaultValue(0L)
+                                    .setSaveConsumer(v -> autoChatUnitRef.get().initialDelaySeconds = v)
+                                    .build());
+                            add(eb.startBooleanToggle(trans(key + ".WallClockAligned"), defaultUnit.wallClockAligned)
+                                    .setTooltip(getTooltip(key + ".WallClockAligned", "boolean", defaultUnit.wallClockAligned))
+                                    .setDefaultValue(false)
+                                    .setSaveConsumer(v -> autoChatUnitRef.get().wallClockAligned = v)
+                                    .build());
+                            add(eb.startLongField(trans(key + ".OffsetSeconds"), defaultUnit.offsetSeconds)
+                                    .setTooltip(getTooltip(key + ".OffsetSeconds", "long", defaultUnit.offsetSeconds))
+                                    .setDefaultValue(0L)
+                                    .setSaveConsumer(v -> autoChatUnitRef.get().offsetSeconds = v)
                                     .build());
                         }}, SHOULD_EXPAND_ALL_RULES);
                     } else {
-                        Component displayText = trans(key + ".@Display", autoChatUnit.message, autoChatUnit.interval);
+                        Component displayText = trans(key + ".@Display", autoChatUnit.message, autoChatUnit.scheduleSummaryLabel());
                         return new MultiElementListEntry<>(displayText, autoChatUnit, new ArrayList<AbstractConfigListEntry<?>>() {{
                             add(eb.startBooleanToggle(trans(key + ".Abled"), autoChatUnit.abled)
                                     .setTooltip(getTooltip(key + ".Abled", "boolean", autoChatUnit.abled))
@@ -424,8 +439,23 @@ public class ConfigScreenUtils {
                                     .build());
                             add(eb.startLongField(trans(key + ".Interval"), autoChatUnit.interval)
                                     .setTooltip(getTooltip(key + ".Interval", "long", autoChatUnit.interval))
-                                    .setDefaultValue(5000L)
+                                    .setDefaultValue(300L)
                                     .setSaveConsumer(v -> autoChatUnit.interval = v)
+                                    .build());
+                            add(eb.startLongField(trans(key + ".InitialDelaySeconds"), autoChatUnit.initialDelaySeconds)
+                                    .setTooltip(getTooltip(key + ".InitialDelaySeconds", "long", autoChatUnit.initialDelaySeconds))
+                                    .setDefaultValue(0L)
+                                    .setSaveConsumer(v -> autoChatUnit.initialDelaySeconds = v)
+                                    .build());
+                            add(eb.startBooleanToggle(trans(key + ".WallClockAligned"), autoChatUnit.wallClockAligned)
+                                    .setTooltip(getTooltip(key + ".WallClockAligned", "boolean", autoChatUnit.wallClockAligned))
+                                    .setDefaultValue(false)
+                                    .setSaveConsumer(v -> autoChatUnit.wallClockAligned = v)
+                                    .build());
+                            add(eb.startLongField(trans(key + ".OffsetSeconds"), autoChatUnit.offsetSeconds)
+                                    .setTooltip(getTooltip(key + ".OffsetSeconds", "long", autoChatUnit.offsetSeconds))
+                                    .setDefaultValue(0L)
+                                    .setSaveConsumer(v -> autoChatUnit.offsetSeconds = v)
                                     .build());
                         }}, SHOULD_EXPAND_ALL_RULES);
                     }

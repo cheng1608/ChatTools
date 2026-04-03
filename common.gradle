@@ -34,7 +34,7 @@ dependencies {
     // https://github.com/sshtools/two-slices
     modImplementation 'com.sshtools:two-slices:0.9.4'
     include 'com.sshtools:two-slices:0.9.4'
-
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.5'
     include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.4.0")))
 }
 
